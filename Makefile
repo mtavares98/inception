@@ -1,17 +1,21 @@
-all:
-	@docker-compose -f ./src/docker-compose.yaml up
+all: up
+
+up:
+	mkdir -p ~/data/mysql
+	mkdir -p ~/data/wordpress/
+	docker-compose -f ./srcs/docker-compose.yml up -d
 
 down:
-	@docker-compose -f ./src/docker-compose.yaml down
+	docker-compose -f ./srcs/docker-compose.yml down --rmi all --volumes
 
-re:
-	@docker-compose -f src/docker-compose.yaml up --build
+stop:
+	docker-compose -f ./srcs/docker-compose.yml stop
 
-clean:
-	@docker stop $$(docker ps -qa);\
-	docker rm $$(docker ps -qa);\
-	docker rmi -f $$(docker images -qa);\
-	docker volume rm $$(docker volume ls -q);\
-	docker network rm inception-network\
+clean: down
 
-.PHONY: all re down clean
+logs:
+	docker-compose -f ./srcs/docker-compose.yml logs
+
+re: clean up
+
+.PHONY: all up down stop clean logs
