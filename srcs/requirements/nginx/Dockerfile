@@ -1,11 +1,10 @@
-FROM alpine:3.17
+FROM debian:11-slim
 
-RUN apk update && apk upgrade && apk add nginx openssl
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y install nginx openssl
 
 RUN mkdir -p /etc/nginx/ssl
-RUN rm -f /etc/nginx/http.d/default.conf
 
-COPY ./conf/default.conf /etc/nginx/http.d/default.conf
+COPY ./conf/default.conf /etc/nginx/conf.d/
 
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -subj "/C=PT/ST=Lisboa/L=Lisbon/O=42 Lisbon/CN=mtavares.42.fr" \
