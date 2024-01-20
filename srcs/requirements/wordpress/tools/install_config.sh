@@ -6,7 +6,7 @@ conf_file="/var/www/html/wp-config.php"
 
 wp_download()
 {
-    if wp core download --allow-root; 
+    if wp core download --allow-root;
     then
         return 1
     else
@@ -14,7 +14,7 @@ wp_download()
     fi
 }
 
-wp_config() 
+wp_config()
 {
     if wp config create \
         --allow-root \
@@ -38,12 +38,13 @@ wp_install()
         --admin_user=$WP_ADMIN \
         --admin_password=$WP_ADMIM_PASS \
         --admin_email=$WP_ADMIM_EMAIL \
-        --url=$WP_URL 
+        --url=$WP_URL
     then
         wp user create \
         --allow-root \
         $WP_USER $WP_USER_EMAIL \
-        --user_pass=$WP_USER_PASS
+        --user_pass=$WP_USER_PASS \
+        --role=author
         return 1
     else
         return 0
@@ -55,7 +56,7 @@ if [ ! -e "$conf_file" ]; then
     command=0
     attempts=0
     max_attempts=5
-    
+
     cd /var/www/html/
 
     while [ $attempts -le $max_attempts ]; do
@@ -77,18 +78,18 @@ if [ ! -e "$conf_file" ]; then
         fi
         ((attempts+=1))
 
-        # It requires a delay due to the inability to connect to MariaDB. 
+        # It requires a delay due to the inability to connect to MariaDB.
         # It appears that using 'depends_on' doesn't guarantee that WordPress will start after MariaDB.
         sleep 1
 
     done
-    
+
     if [ $attempts -ge $max_attempts ]; then
         echo "Failed to install WordPress."
     else
         echo "WordPress installation successfully."
     fi
-  
+
 else
     echo "Wordpress already installed and ready to use."
 fi

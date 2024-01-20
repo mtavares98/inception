@@ -1,7 +1,10 @@
 FROM debian:11
 
-RUN apt -y update && apt -y upgrade && apt -y install curl php7.4 \
-  php7.4-fpm php7.4-mysql php7.4-curl php7.4-gd \
+RUN dpkg-reconfigure debconf
+
+RUN apt -y update && apt -y upgrade && apt -y install apt-utils
+
+RUN apt -y install curl php7.4 php7.4-fpm php7.4-mysql php7.4-curl php7.4-gd \
   php7.4-mbstring php7.4-xml php7.4-xmlrpc php7.4-soap php7.4-intl php7.4-zip mariadb-client
 
 # Install WordPress CLI (WP-CLI) for command-line WordPress management.

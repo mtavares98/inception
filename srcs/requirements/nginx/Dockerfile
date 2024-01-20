@@ -1,6 +1,9 @@
 FROM debian:11-slim
 
-RUN apt-get -y update && apt-get -y upgrade && apt-get -y install nginx openssl
+
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y install apt-utils
+
+RUN apt-get -y install nginx openssl
 
 RUN mkdir -p /etc/nginx/ssl
 

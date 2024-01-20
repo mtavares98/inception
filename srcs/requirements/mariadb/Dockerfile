@@ -1,6 +1,10 @@
 FROM debian:11
 
-RUN apt update && apt -y upgrade && apt -y install mariadb-server
+RUN echo 'debconf debconf/frontend select Dialog' | debconf-set-selections
+
+RUN apt update && apt -y upgrade && apt -y install apt-utils
+
+RUN apt install -y mariadb-server
 
 COPY ./tools/script.sh /home
 
