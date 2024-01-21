@@ -1,7 +1,5 @@
 FROM debian:11
 
-RUN echo 'debconf debconf/frontend select Dialog' | debconf-set-selections
-
 RUN apt update && apt -y upgrade && apt -y install apt-utils
 
 RUN apt install -y mariadb-server
