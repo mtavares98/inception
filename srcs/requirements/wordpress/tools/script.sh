@@ -19,10 +19,10 @@ wp_config()
     if wp config create \
         --allow-root \
         --path=/var/www/html/ \
-        --dbname=${DB_NAME} \
-        --dbuser=${DB_ADMIN} \
-        --dbpass=${DB_PASS} \
-        --dbhost=${DB_HOST}
+        --dbname=$DB_NAME \
+        --dbuser=$DB_ADMIN \
+        --dbpass=$DB_PASS \
+        --dbhost=$DB_HOST
     then
         return 1
     else
@@ -36,8 +36,8 @@ wp_install()
     then
         wp user create \
         --allow-root \
-        ${WP_USER} ${WP_USER_EMAIL} \
-        --user_pass=${WP_USER_PASS}
+        $WP_USER $WP_USER_EMAIL \
+        --user_pass=$WP_USER_PASS
         return 1
     else
         return 0

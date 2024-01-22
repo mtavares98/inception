@@ -12,4 +12,5 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 COPY ./conf/default.conf /etc/nginx/conf.d
 
+# Forcing running the nginx in the foreground without daemonization
 CMD [ "nginx", "-g", "daemon off;"  ]
